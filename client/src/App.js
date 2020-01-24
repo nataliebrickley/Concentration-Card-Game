@@ -1,20 +1,27 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import API from "./util/API"
 
-function App() {
+class App extends React.Component {
+  state = {
+    data: "unclicked"
+  }
+  handleClick = () => {
+    console.log("clicked")
+    API.shuffle().then(res => {
+      this.setState({data: res.data})
+      console.log(this.state.data)
+
+    })
+  }
+  render() {
   return (
     <div className="App">
-      <button onClick={() => handleClick()}>New Game</button>
+      {/* <p>{this.state.data}</p> */}
+      <button onClick={() => this.handleClick()}>New Game</button>
     </div>
   );
 }
-
-function handleClick() {
-  console.log("clicked")
-  API.shuffle().then(res => {
-    console.log("ok")
-  })
 }
+
 export default App;
