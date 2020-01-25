@@ -14,8 +14,7 @@ if (process.env.NODE_ENV === "production") {
 }
 //Define API routes
 app.get("/api/shuffle", (req, res) => {
-  axios.get("https://deckofcardsapi.com/api/deck/new/draw/?count=2").then(function(response){
-    console.log(response.data.remaining)
+  axios.get("https://deckofcardsapi.com/api/deck/new/draw/?count=52").then(function(response){
     res.json(response.data.cards)
   })
 })
