@@ -5,16 +5,42 @@ import Card from "./components/Cards/card";
 
 class App extends React.Component {
   state = {
-    data: []
+    data: [],
+    first: "",
+    second: ""
   }
+
   handleNewGame = () => {
     API.shuffle().then(res => {
       this.setState({ data: res.data })
     })
   }
-  cardClick = (card) => {
+  
+  cardClick = (item) => {
+    let {first, second} = this.state;
+    if(first === "") {
+      this.setState({first: item.value})
+    }
+    else if (first !== "" && second==="") {
+      this.setState({second: item.value}, function() {
+        this.resolveMatch()
+      console.log("match? " + this.resolveMatch())
+      })
+      
+    }
     
-    console.log(card)
+  }
+  resolveMatch = () => {
+    let {first, second} = this.state;
+    console.log(`first: ${first} second: ${second}`)
+    if(first===second){
+      this.setState({first: "", second: ""})
+      return true
+    }
+    else {
+      this.setState({first: "", second: ""})
+      return false
+  }
   }
   render() {
     let {data} = this.state
@@ -25,9 +51,10 @@ class App extends React.Component {
             return (
               <Card
                 key={idx}
+                cardClick={()=>this.cardClick(item)}
                 idx={idx}
+                showImg={false}
                 item={item}
-                handleClick={()=>this.cardClick(item)}
               />
             )
           })}

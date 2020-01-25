@@ -15,7 +15,11 @@ if (process.env.NODE_ENV === "production") {
 //Define API routes
 app.get("/api/shuffle", (req, res) => {
   axios.get("https://deckofcardsapi.com/api/deck/new/draw/?count=52").then(function(response){
-    res.json(response.data.cards)
+    let deck = response.data.cards;
+    deck.forEach(item => {
+      item.show = false
+    })
+    res.json(deck)
   })
 })
 // Send every other request to the React app

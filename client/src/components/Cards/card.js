@@ -7,16 +7,16 @@ export default class Card extends React.Component {
     clicked: false
   }
   handleClick = () => {
-    console.log("clicked")
     this.setState({clicked: true})
   }
   getImg = () => {
-    return (this.state.clicked ? this.props.item.image : cardback)
+    console.log(this.props.item.show)
+    return (this.props.item.show ? this.props.item.image : cardback)
   }
   render() {
     return (
       <div className="card" onClick={()=>this.handleClick()}>
-        <img className="card-img" src={this.getImg()} alt={this.props.idx}/>
+        <img onClick={this.props.cardClick} className="card-img" src={this.getImg()} alt={this.props.idx}/>
       </div>
     )
   }
