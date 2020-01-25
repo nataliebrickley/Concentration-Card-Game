@@ -7,7 +7,8 @@ class App extends React.Component {
   state = {
     data: [],
     first: "",
-    second: ""
+    second: "",
+    pairsLeft: 26
   }
 
   handleNewGame = () => {
@@ -26,7 +27,6 @@ class App extends React.Component {
     else if (first !== "" && second === "") {
       this.setState({ second: item }, function () {
         this.resolveMatch()
-        console.log("match? " + this.resolveMatch())
       })
 
     }
@@ -39,7 +39,6 @@ class App extends React.Component {
   }
   resolveMatch = () => {
     let { first, second, data } = this.state;
-    console.log(`first: ${first.value} second: ${second.value}`)
     if (first.value === second.value) {
       this.setState({ first: "", second: "" })
       return true
