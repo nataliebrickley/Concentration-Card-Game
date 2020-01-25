@@ -15,35 +15,48 @@ class App extends React.Component {
       this.setState({ data: res.data })
     })
   }
-  
-  cardClick = (item) => {
-    let {first, second} = this.state;
-    if(first === "") {
-      this.setState({first: item.value})
+  showCard = (item) => {
+    item.show = true;
+  }
+  keepTrack = (item) => {
+    let { first, second } = this.state;
+    if (first === "") {
+      this.setState({ first: item })
     }
-    else if (first !== "" && second==="") {
-      this.setState({second: item.value}, function() {
+    else if (first !== "" && second === "") {
+      this.setState({ second: item }, function () {
         this.resolveMatch()
-      console.log("match? " + this.resolveMatch())
+        console.log("match? " + this.resolveMatch())
       })
-      
+
     }
-    
+  }
+  cardClick = (item) => {
+    this.showCard(item)
+    console.log("show")
+    this.keepTrack(item)
   }
   resolveMatch = () => {
-    let {first, second} = this.state;
-    console.log(`first: ${first} second: ${second}`)
-    if(first===second){
-      this.setState({first: "", second: ""})
+    let { first, second, data } = this.state;
+    console.log(`first: ${first.value} second: ${second.value}`)
+    if (first.value === second.value) {
+      this.setState({ first: "", second: "" })
       return true
     }
     else {
-      this.setState({first: "", second: ""})
-      return false
-  }
+      setTimeout(() => {
+        data.forEach(item => {
+          if (item === first || item === second) {
+            item.show = false;
+          }
+        })
+        this.setState({ first: "", second: "" })
+        return false
+      }, 1000)
+    }
   }
   render() {
-    let {data} = this.state
+    let { data } = this.state
     return (
       <div className="App">
         <div className="row">
@@ -51,20 +64,7 @@ class App extends React.Component {
             return (
               <Card
                 key={idx}
-                cardClick={()=>this.cardClick(item)}
-                idx={idx}
-                showImg={false}
-                item={item}
-              />
-            )
-          })}
-        </div>
-
-        <div className="row">
-          {data.filter(item => data.indexOf(item) > 12 &&data.indexOf(item) <= 25).map((item, idx) => {
-            return (
-              <Card
-                key={idx}
+                cardClick={() => this.cardClick(item)}
                 idx={idx}
                 item={item}
               />
@@ -73,10 +73,11 @@ class App extends React.Component {
         </div>
 
         <div className="row">
-          {data.filter(item => data.indexOf(item) > 25 &&data.indexOf(item) <= 38).map((item, idx) => {
+          {data.filter(item => data.indexOf(item) > 12 && data.indexOf(item) <= 25).map((item, idx) => {
             return (
               <Card
                 key={idx}
+                cardClick={() => this.cardClick(item)}
                 idx={idx}
                 item={item}
               />
@@ -85,10 +86,24 @@ class App extends React.Component {
         </div>
 
         <div className="row">
-          {data.filter(item => data.indexOf(item) > 38 &&data.indexOf(item) <= 51).map((item, idx) => {
+          {data.filter(item => data.indexOf(item) > 25 && data.indexOf(item) <= 38).map((item, idx) => {
             return (
               <Card
                 key={idx}
+                cardClick={() => this.cardClick(item)}
+                idx={idx}
+                item={item}
+              />
+            )
+          })}
+        </div>
+
+        <div className="row">
+          {data.filter(item => data.indexOf(item) > 38 && data.indexOf(item) <= 51).map((item, idx) => {
+            return (
+              <Card
+                key={idx}
+                cardClick={() => this.cardClick(item)}
                 idx={idx}
                 item={item}
               />
