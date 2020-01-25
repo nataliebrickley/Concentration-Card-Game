@@ -32,9 +32,10 @@ class App extends React.Component {
     }
   }
   cardClick = (item) => {
-    this.showCard(item)
-    console.log("show")
-    this.keepTrack(item)
+    if (!item.show) {
+      this.showCard(item)
+      this.keepTrack(item)
+    }
   }
   resolveMatch = () => {
     let { first, second, data } = this.state;
@@ -52,7 +53,7 @@ class App extends React.Component {
         })
         this.setState({ first: "", second: "" })
         return false
-      }, 1000)
+      }, 500)
     }
   }
   render() {
