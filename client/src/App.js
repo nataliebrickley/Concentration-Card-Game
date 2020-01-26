@@ -52,12 +52,11 @@ class App extends React.Component {
     if (first.value === second.value) {
       data.forEach((item, idx) => {
         if (item === first || item === second) {
-          document.getElementById(`${idx}`).style.display = "none";
+          setTimeout(()=>{document.getElementById(`${idx}`).style.display = "none"}, 500)
         }
       })
       this.setState((prevState, props) =>
         ({ first: "", second: "", pairsLeft: prevState.pairsLeft - 1 }), () => {
-          console.log(this.state.pairsLeft)
           if (this.state.pairsLeft === 0) {
             document.getElementById("game").style.backgroundImage = `url(${fireworks})`
           }

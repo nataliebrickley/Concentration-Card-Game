@@ -4,12 +4,14 @@ import cardback from "./cardback.png"
 
 export default class Card extends React.Component {
   getImg = () => {
-    return (this.props.item.show ? this.props.item.image : cardback)
+    let {item} = this.props;
+    return (item.show ? item.image : cardback)
   }
   render() {
+    let {cardClick, idx} = this.props;
     return (
       <div className="card">
-        <img onClick={this.props.cardClick} className="card-img" id={this.props.idx} src={this.getImg()} alt={this.props.idx}/>
+        <img onClick={cardClick} className="card-img" id={idx} src={this.getImg()} alt={idx}/>
       </div>
     )
   }
