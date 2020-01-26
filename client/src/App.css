@@ -1,5 +1,47 @@
+.App {
+  height: 100%;
+}
+.home{
+  background-image: url("./components/Cards/cards-background.jpg");
+  height: 100%;
+  color: white;
+  display: flex;
+  justify-content: space-evenly;
+}
+.homeText{
+  margin: 50px;
+  background-color:rgba(0, 0, 0, .5);
+  width: 50%;
+  text-align: center;
+}
+.title{
+  font-size: 48px;
+}
+.rules{
+  font-size: 24px;
+}
 .row {
   display: flex;
   width: 100%;
   justify-content: space-evenly;
+}
+button{
+  background-color: goldenrod;
+  border: 1px solid black;
+  border-radius: 5%;
+  height: 50px;
+}
+button:hover{
+  border: 1px solid white;
+}
+.game{
+  background-color: black;
+  height: 100%;
+  padding-top: 40px;
+}
+.game-btn{
+  width: 100px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
 }
