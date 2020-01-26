@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import API from "./util/API";
 import Card from "./components/Cards/card";
+import correct from "./components/Cards/happy-face.jpg"
 
 class App extends React.Component {
   state = {
@@ -42,6 +43,11 @@ class App extends React.Component {
   resolveMatch = () => {
     let { first, second, data } = this.state;
     if (first.value === second.value) {
+      data.forEach((item, idx) => {
+        if (item === first || item === second) {
+          document.getElementById(`${idx}`).style.display = "none";
+        }
+      })
       this.setState({ first: "", second: "" })
       return true
     }
@@ -92,7 +98,7 @@ class App extends React.Component {
                   <Card
                     key={idx}
                     cardClick={() => this.cardClick(item)}
-                    idx={idx}
+                    idx={idx + 13}
                     item={item}
                   />
                 )
@@ -105,7 +111,7 @@ class App extends React.Component {
                   <Card
                     key={idx}
                     cardClick={() => this.cardClick(item)}
-                    idx={idx}
+                    idx={idx + 26}
                     item={item}
                   />
                 )
@@ -118,7 +124,7 @@ class App extends React.Component {
                   <Card
                     key={idx}
                     cardClick={() => this.cardClick(item)}
-                    idx={idx}
+                    idx={idx + 39}
                     item={item}
                   />
                 )

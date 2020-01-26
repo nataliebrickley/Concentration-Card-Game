@@ -9,7 +9,7 @@ export default class Card extends React.Component {
   render() {
     return (
       <div className="card">
-        <img onClick={this.props.cardClick} className="card-img" src={this.getImg()} alt={this.props.idx}/>
+        <img onClick={this.props.cardClick} className="card-img" id={this.props.idx} src={this.getImg()} alt={this.props.idx}/>
       </div>
     )
   }
