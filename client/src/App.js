@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import API from "./util/API";
 import Card from "./components/Cards/card";
-import correct from "./components/Cards/happy-face.jpg"
+import fireworks from "./components/Cards/fireworks.jpg"
 
 class App extends React.Component {
   state = {
@@ -14,10 +14,17 @@ class App extends React.Component {
   }
 
   handleNewGame = () => {
+    if (document.getElementById("game") !== null) {
+      document.getElementById("game").style.backgroundImage = "none";
+    }
     API.shuffle().then(res => {
-      this.setState({ data: res.data })
+      this.setState({ data: res.data, pairsLeft: 26, playing: true }, () => {
+        this.state.data.forEach((item, idx) => {
+          document.getElementById(`${idx}`).style.display = "inherit"
+        })
+      })
     })
-    this.setState({ playing: true })
+
   }
   showCard = (item) => {
     item.show = true;
@@ -48,7 +55,13 @@ class App extends React.Component {
           document.getElementById(`${idx}`).style.display = "none";
         }
       })
-      this.setState({ first: "", second: "" })
+      this.setState((prevState, props) =>
+        ({ first: "", second: "", pairsLeft: prevState.pairsLeft - 1 }), () => {
+          console.log(this.state.pairsLeft)
+          if (this.state.pairsLeft === 0) {
+            document.getElementById("game").style.backgroundImage = `url(${fireworks})`
+          }
+        })
       return true
     }
     else {
@@ -78,7 +91,7 @@ class App extends React.Component {
             </div>
 
           </div>
-          : <div className="game">
+          : <div id="game">
             <div className="row">
               {data.filter(item => data.indexOf(item) <= 12).map((item, idx) => {
                 return (

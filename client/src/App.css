@@ -34,7 +34,7 @@ button{
 button:hover{
   border: 1px solid white;
 }
-.game{
+#game{
   background-color: black;
   height: 100%;
   padding-top: 40px;
